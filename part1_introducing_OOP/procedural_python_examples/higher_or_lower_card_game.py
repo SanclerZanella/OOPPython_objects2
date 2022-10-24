@@ -127,20 +127,20 @@ print('OK bye')
 
 
 '''
-
-Since this is a playing card-based game, the code obviously creates and
-manipulates a simulated deck of cards. If we wanted to write another cardbased
-game, it would be great to be able to reuse the code for the deck
-and cards.
-In a procedural program, it can often be difficult to identify all the
-pieces of code associated with one portion of the program, such as the deck
-and cards in this example. In Listing 1-1, the code for the deck consists of
-two tuple constants, two functions, some main code to build a global list
-that represents the starting deck of 52 cards, and another global list that
-represents the deck that is used while the game is being played. Further,
-notice that even in a small program like this, the data and the code that
-manipulates the data might not be closely grouped together.
-Therefore, reusing the deck and card code in another program is not
-that easy or straightforward.
+Reusability:
+    Since this is a playing card-based game, the code obviously creates and
+    manipulates a simulated deck of cards. If we wanted to write another cardbased
+    game, it would be great to be able to reuse the code for the deck
+    and cards.
+    In a procedural program, it can often be difficult to identify all the
+    pieces of code associated with one portion of the program, such as the deck
+    and cards in this example. In Listing 1-1, the code for the deck consists of
+    two tuple constants, two functions, some main code to build a global list
+    that represents the starting deck of 52 cards, and another global list that
+    represents the deck that is used while the game is being played. Further,
+    notice that even in a small program like this, the data and the code that
+    manipulates the data might not be closely grouped together.
+    Therefore, reusing the deck and card code in another program is not
+    that easy or straightforward.
 
 '''
