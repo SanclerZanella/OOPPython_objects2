@@ -2,81 +2,82 @@
 
     Non-OOP
 
-    Bank Account Simulation 4 - Multiple Accounts Using Lists
-        To more easily accommodate multiple accounts, in this version represent
-        the data using lists. three parallel lists are used in this version of
-        the program:
-        accountNamesList, accountPasswordsList, and accountBalancesList.
+    Bank Account Simulation 5 - List of Account Dictionaries
+        In this version, is created a list of accounts, where each account
+        (each element of this list) is a dictionary that looks like this:
 
+        {'name':<someName>, 'password':<somePassword>, 'balance':<someBalance>}
 
 '''
 
-accountNamesList = []
-accountBalancesList = []
-accountPasswordsList = []
+accountsList = []
 
 
-def newAccount(name, balance, password):
-    global accountNamesList, accountBalancesList, accountPasswordsList
-    accountNamesList.append(name)
-    accountBalancesList.append(balance)
-    accountPasswordsList.append(password)
+def newAccount(aName, aBalance, aPassword):
+    global accountsList
+    newAccountDict = {'name': aName, 'balance': aBalance,
+                      'password': aPassword}
+    accountsList.append(newAccountDict)
 
 
 def show(accountNumber):
-    global accountNamesList, accountBalancesList, accountPasswordsList
+    global accountsList
     print('Account', accountNumber)
-    print('       Name', accountNamesList[accountNumber])
-    print('       Balance:', accountBalancesList[accountNumber])
-    print('       Password:', accountPasswordsList[accountNumber])
+    thisAccountDict = accountsList[accountNumber]
+    print('       Name', thisAccountDict['name'])
+    print('       Balance:', thisAccountDict['balance'])
+    print('       Password:', thisAccountDict['password'])
     print()
 
 
 def getBalance(accountNumber, password):
-    global accountNamesList, accountBalancesList, accountPasswordsList
-    if password != accountPasswordsList[accountNumber]:
+    global accountsList
+    thisAccountDict = accountsList[accountNumber]
+    if password != thisAccountDict['password']:
         print('Incorrect password')
         return None
-    return accountBalancesList[accountNumber]
+    return thisAccountDict['balance']
 
 
 def deposit(accountNumber, amountToDeposit, password):
-    global accountNamesList, accountBalancesList, accountPasswordsList
+    global accountsList
+    thisAccountDict = accountsList[accountNumber]
     if amountToDeposit < 0:
         print('You cannot deposit a negative amount!')
         return None
 
-    if password != accountPasswordsList[accountNumber]:
+    if password != thisAccountDict['password']:
         print('Incorrect password')
         return None
 
-    accountBalancesList[accountNumber] = accountBalancesList[accountNumber] + amountToDeposit
-    return accountBalancesList[accountNumber]
+    thisAccountDict['balance'] = thisAccountDict['balance'] + amountToDeposit
+    return thisAccountDict['balance']
 
 
 def withdraw(accountNumber, amountToWithdraw, password):
-    global accountNamesList, accountBalancesList, accountPasswordsList
+    global accountsList
+    thisAccountDict = accountsList[accountNumber]
     if amountToWithdraw < 0:
         print('You cannot withdraw a negative amount')
         return None
 
-    if password != accountPasswordsList[accountNumber]:
+    if password != thisAccountDict['password']:
         print('Incorrect password for this account')
         return None
 
-    if amountToWithdraw > accountBalancesList[accountNumber]:
+    if amountToWithdraw > thisAccountDict['balance']:
         print('You cannot withdraw more than you have in your account')
         return None
 
-    accountBalancesList[accountNumber] = accountBalancesList[accountNumber] - amountToWithdraw
-    return accountBalancesList[accountNumber]
+    thisAccountDict['balance'] = thisAccountDict['balance'] - amountToWithdraw
+    return thisAccountDict['balance']
 
 
 # Create two sample accounts
-print("Joe's account is account number:", len(accountNamesList))
+print("Joe's account is account number:", len(accountsList))
 newAccount("Joe", 100, 'soup')
 
-print("Mary's account is account number:", len(accountNamesList))
+print("Mary's account is account number:", len(accountsList))
 newAccount("Mary", 12345, 'nuts')
 
 while True:
@@ -119,19 +120,19 @@ while True:
     elif action == 'n':
         print('New Account:')
         userName = input('What is your name? ')
-        userStartingAmount = input('What is the amount of\
-                                    your initial deposit? ')
+        userStartingAmount = input('What is the amount of your\
+                                    initial deposit? ')
         userStartingAmount = int(userStartingAmount)
-        userPassword = input('What password would you\
-                             like to use for this account? ')
+        userPassword = input('What password would you like to use for this\
+                             account? ')
 
-        userAccountNumber = len(accountNamesList)
+        userAccountNumber = len(accountsList)
         newAccount(userName, userStartingAmount, userPassword)
         print('Your new account number is:', userAccountNumber)
 
     elif action == 's':  # show all
         print('Show:')
-        nAccounts = len(accountNamesList)
+        nAccounts = len(accountsList)
         for accountNumber in range(0, nAccounts):
             show(accountNumber)
 
@@ -156,15 +157,10 @@ print('Done')
 
 '''
 
-The data is maintained as three global Python lists, where each list
-represents a column in this table. For example, as you can see from the
-highlighted column, all the passwords are grouped together as one list. The
-user's names are grouped in another list, and the balances are grouped in
-a third list. With this approach, to get information about one account, you
-need to access these lists with a common index value.
-While this works, it seems extremely awkward. The data is not grouped in
-a logical way. For example, it doesn't seem right to keep all users' passwords
-together. Further, every time you add a new attribute to an account, like an
-address or phone number, you need to create and access another global list.
+This cleans things up quite a bit, making the organization of the data
+more logical. But each of the functions in the program must still have access
+to the global list of accounts. As we'll see in the next section, granting
+functions access to all account data raises potential security risks. Ideally,
+each function should only be able to affect the data of a single account.
 
 '''
