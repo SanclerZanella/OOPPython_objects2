@@ -95,3 +95,57 @@ oLightSwitch.turnOff()
 oLightSwitch.show()
 oLightSwitch.turnOn()
 oLightSwitch.show()
+
+'''
+One of the key features of OOP is that you can instantiate as many objects
+as you want from a single class.
+So, if you want two light switch objects, or three, or more, you can just
+create additional objects from the LightSwitch class like so:
+'''
+
+oLightSwitch1 = LightSwitch()  # create a LightSwitch object
+oLightSwitch2 = LightSwitch()  # create another LightSwitch object
+
+'''
+The important point here is that each object that you create from a
+class maintains its own version of the data.
+Any changes you make to the data of one object will not affect the data
+of another object.
+'''
+
+oLightSwitch1.show()
+oLightSwitch2.show()
+oLightSwitch1.turnOn()  # Turn switch 1 on
+# Switch 2 should be off at start, but this makes it clearer
+oLightSwitch2.turnOff()
+oLightSwitch1.show()
+oLightSwitch2.show()
+
+# It might not surprise you that all built-in data types in Python are
+# implemented as classes. Here is a simple example:
+
+myString = 'abcde'
+print(type(myString))  # Output: <class 'str'>
+
+'''
+We assign a string value to a variable. When we call the type() function
+and print the results, we see that we have an instance of the str string class.
+The str class gives us a number of methods we can call with strings, including
+myString.upper(), myString.lower(), myString.strip(), and so on.
+Any other pythpn data type work in the same way.
+'''
+
+myList = [10, 20, 30, 40]
+print(type(myList))  # <class 'list'>
+
+'''
+To summarize the definition of an object:
+    object - Data, plus code that acts on that data, over time
+
+A class defines what an object will look like when you instantiate one.
+An object is a set of instance variables and the code of the methods in the
+class from which the object was instantiated. Any number of objects can
+be instantiated from a class, and each has its own set of instance variables.
+When you call a method of an object, the method runs and uses the set of
+instance variables in that object.
+'''
