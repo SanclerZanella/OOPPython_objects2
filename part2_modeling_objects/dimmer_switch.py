@@ -4,7 +4,7 @@ Dimmer switch class
 
 Instance Variables:
     The switch state (on or off);
-    Brightness level (0 to 10)
+    Brightness level (0 to 10);
 
 Methods:
     def TurnOn(self);
